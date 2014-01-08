@@ -1,0 +1,29 @@
+Name: harbour-metronome
+Summary: Metronome
+Version: 1.0
+Release: 1
+Group: Qt/Qt
+URL: http://example.org/
+License: GPLv2
+Sources:
+- '%{name}-%{version}.tar.bz2'
+Description: |
+  Simple metronome for Sailfish OS
+Configure: none
+Builder: qtc5
+PkgConfigBR:
+- sailfishapp >= 0.0.10
+- Qt5Core
+- Qt5Qml
+- Qt5Quick
+Requires:
+- sailfishsilica-qt5 >= 0.10.9
+Files:
+- '%{_datadir}/icons/hicolor/86x86/apps/%{name}.png'
+- '%{_datadir}/applications/%{name}.desktop'
+- '%{_datadir}/%{name}/qml'
+- '%{_bindir}'
+- /usr/bin
+- /usr/share/harbour-metronome
+- /usr/share/applications
+- /usr/share/icons/hicolor/86x86/apps

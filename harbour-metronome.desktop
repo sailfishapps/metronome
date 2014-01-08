@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+X-Nemo-Application-Type=silica-qt5
+Name=Metronome
+Icon=harbour-metronome
+Exec=harbour-metronome
+

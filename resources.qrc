@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/">
+        <file alias="bip.wav">res/bip.wav</file>
+        <file alias="bop.wav">res/bop.wav</file>
+    </qresource>
+</RCC>
