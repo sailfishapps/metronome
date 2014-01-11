@@ -36,6 +36,12 @@ ApplicationWindow
 {
     initialPage: FirstPage {id: metronome}
     cover: Qt.resolvedUrl("cover/CoverPage.qml")
+
+    onApplicationActiveChanged: {
+        if(!applicationActive){
+            metronome._running = false
+        }
+    }
 }
 
 
