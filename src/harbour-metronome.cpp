@@ -48,7 +48,7 @@ int main(int argc, char *argv[])
     //
     // To display the view, call "show()" (will show fullscreen on device).
 
-    qmlRegisterType<PieCircle>("Metronome.Components", 1, 0, "PieCircle");
+    qmlRegisterType<PieCircle>("harbour.metronome.Components", 1, 0, "PieCircle");
 
     return SailfishApp::main(argc, argv);
 }
