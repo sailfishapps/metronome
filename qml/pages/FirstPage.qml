@@ -46,14 +46,18 @@ Page {
     property int _bpm: tempo.value
     property alias _running: metronomeTimer.running
 
+    Audio{ id: audio } // Using system volume
+
     SoundEffect{
         id: bip
         source: "qrc:/bip.wav"
+        volume: audio.volume
     }
 
     SoundEffect {
         id: bop
         source: "qrc:/bop.wav"
+        volume: audio.volume
     }
 
     Timer {
