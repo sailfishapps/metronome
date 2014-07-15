@@ -4,8 +4,8 @@
 
 PieCircle::PieCircle(QQuickItem *parent) :
     QQuickPaintedItem(parent),
-    _selectedSlice(0),
-    _slices(4)
+    _slices(4),
+    _selectedSlice(0)
 {
     connect(this, SIGNAL(colorChanged()), this, SLOT(update()));
     connect(this, SIGNAL(slicesChanged()), this, SLOT(update()));
@@ -16,40 +16,30 @@ void PieCircle::paint(QPainter *painter)
     painter->setPen(Qt::NoPen);
 
     QColor brushColor = _color;
+
     brushColor.setAlpha(255/4);
     QBrush brush;
     brush.setStyle(Qt::SolidPattern);
     brush.setColor(brushColor);
     painter->setBrush(brush);
 
-    double angle = 360 / _slices;
-    double currentAngle = 90 + (angle / 2);
+    painter->drawEllipse(boundingRect());
 
-    for (int i = 0; i < _slices; ++i) {
+    const double angle = 360 / _slices;
+    const double start = (90 + (angle / 2)) + (angle * -_selectedSlice);
 
-        if(i == _selectedSlice){
-            painter->save();
+    painter->save();
 
-            if (i == 0){
-                QColor g(0, 255, 0, 255/4);
-                brush.setColor(g);
-            } else {
-                QColor r(255, 0, 0, 255/4);
-                brush.setColor(r);
-            }
+    if (_selectedSlice == 0)
+        brush.setColor(QColor(0, 255, 0, 255/4));
+    else
+        brush.setColor(QColor(255, 0, 0, 255/4));
 
-            painter->setBrush(brush);
+    painter->setBrush(brush);
 
-            painter->drawPie(boundingRect(), currentAngle*16, angle*-16);
+    painter->drawPie(boundingRect(), start*16, angle*-16);
 
-            painter->restore();
-        } else {
-            painter->drawPie(boundingRect(), currentAngle*16, angle*-16);
-        }
-
-        currentAngle -= angle;
-    }
-
+    painter->restore();
 }
 
 void PieCircle::setColor(QColor &color)

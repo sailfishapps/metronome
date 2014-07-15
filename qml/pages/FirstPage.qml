@@ -106,7 +106,7 @@ Page {
             width: parent.width
 
             minimumValue: 2
-            maximumValue: 6
+            maximumValue: 14
             value: 2
             stepSize: 1
 
