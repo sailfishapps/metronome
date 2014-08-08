@@ -1,0 +1,3 @@
+[submodule "3rdparty/nemo-keepalive"]
+	path = 3rdparty/nemo-keepalive
+	url = https://github.com/nemomobile/nemo-keepalive.git
