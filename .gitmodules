@@ -1,3 +1,6 @@
 [submodule "3rdparty/nemo-keepalive"]
 	path = 3rdparty/nemo-keepalive
 	url = https://github.com/nemomobile/nemo-keepalive.git
+[submodule "3rdparty/libiphb"]
+	path = 3rdparty/libiphb
+	url = https://github.com/nemomobile/libiphb.git
