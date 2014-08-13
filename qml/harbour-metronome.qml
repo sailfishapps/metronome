@@ -30,16 +30,20 @@
 
 import QtQuick 2.0
 import Sailfish.Silica 1.0
+
+import harbour.metronome.keepalive 1.0
+
 import "pages"
 
 ApplicationWindow
 {
     initialPage: FirstPage {id: metronome}
-    cover: Qt.resolvedUrl("cover/CoverPage.qml")
+    cover: Qt.resolvedUrl("cover/CoverPage.qml");
 
     onApplicationActiveChanged: {
         if(!applicationActive){
             metronome._running = false
+            DisplayBlanking.preventBlanking = false;
         }
     }
 }

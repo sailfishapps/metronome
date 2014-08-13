@@ -33,7 +33,7 @@ import Sailfish.Silica 1.0
 import QtMultimedia 5.0
 
 import harbour.metronome.Components 1.0
-
+import harbour.metronome.keepalive 1.0
 
 Page {
     id: metronome
@@ -99,7 +99,8 @@ Page {
                 anchors.fill: parent
 
                 onClicked: {
-                    metronomeTimer.running = !metronomeTimer.running
+                    metronomeTimer.running = !metronomeTimer.running;
+                    DisplayBlanking.preventBlanking = metronomeTimer.running;
                 }
             }
         }
