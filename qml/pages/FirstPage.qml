@@ -33,7 +33,7 @@ import Sailfish.Silica 1.0
 import QtMultimedia 5.0
 
 import harbour.metronome.Components 1.0
-import harbour.metronome.keepalive 1.0
+import org.nemomobile.keepalive 1.0
 
 Page {
     id: metronome
@@ -45,6 +45,19 @@ Page {
     property alias _beats: beats.value
     property int _bpm: tempo.value
     property alias _running: metronomeTimer.running
+
+    onStatusChanged: {
+        if (status === PageStatus.Activating) {
+            beats.maximumValue = storage.getValue("beats/to") == null ? 14 : storage.getValue("beats/to")
+            beats.minimumValue = storage.getValue("beats/from") == null ? 2 : storage.getValue("beats/from")
+            tempo.maximumValue = storage.getValue("tempo/to") == null ? 300 : storage.getValue("tempo/to")
+            tempo.minimumValue = storage.getValue("tempo/from") == null ? 30 : storage.getValue("tempo/from")
+            tempo.stepSize = storage.getValue("tempo/step") == null ? 10 : storage.getValue("tempo/step")
+
+            tempo.value = tempo.minimumValue
+            beats.value = beats.minimumValue
+        }
+    }
 
     Audio{ id: audio } // Using system volume
 
@@ -76,59 +89,82 @@ Page {
         }
     }
 
-    Column {
-        width: parent.width - (Theme.paddingLarge * 2)
-        anchors.horizontalCenter: parent.horizontalCenter
+    SilicaFlickable {
+        anchors.fill: parent
 
-        spacing: Theme.paddingSmall
-
-        PageHeader {
-            title: "Metronome"
-        }
-        PieCircle {
-            id: pie
-
-            width: parent.width
-            height: width
-
-            color: Theme.primaryColor
-
-            slices: beats.value
-
-            MouseArea{
-                anchors.fill: parent
-
+        PullDownMenu {
+            MenuItem {
+                text: qsTr("Settings")
                 onClicked: {
-                    metronomeTimer.running = !metronomeTimer.running;
-                    DisplayBlanking.preventBlanking = metronomeTimer.running;
+                    metronome._running = false
+                    DisplayBlanking.preventBlanking = false
+
+                    pageStack.push(Qt.resolvedUrl("SettingsPage.qml"))
                 }
             }
         }
 
-        Slider {
-            id: beats
-
-            width: parent.width
-
-            minimumValue: 2
-            maximumValue: 14
-            value: 2
-            stepSize: 1
-
-            valueText: qsTr("Meter %1").arg(value)
+        PageHeader {
+            id: title
+            title: "Metronome"
         }
 
-        Slider{
-            id: tempo
+        Column {
+            width: parent.width - (Theme.paddingLarge * 2)
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.top: title.bottom
 
-            width: parent.width
+            spacing: Theme.paddingMedium
 
-            minimumValue: 30
-            maximumValue: 300
-            value: 60
-            stepSize: 10
 
-            valueText: qsTr("Tempo %1 bpm").arg(value)
+            PieCircle {
+                id: pie
+
+                width: parent.width
+                height: width
+
+                color: Theme.primaryColor
+
+                slices: beats.value
+
+                Image {
+                    anchors.centerIn: parent
+                    source: metronomeTimer.running ? "image://theme/icon-l-pause" : "image://theme/icon-l-play"
+                }
+
+                MouseArea{
+                    anchors.fill: parent
+
+                    onPressed: pie.scale = 0.8
+
+                    onReleased: pie.scale = 1
+                    onCanceled: pie.scale =  1
+
+                    onClicked: {
+                        metronomeTimer.running = !metronomeTimer.running;
+                        DisplayBlanking.preventBlanking = metronomeTimer.running;
+                    }
+                }
+
+                Behavior on scale {
+                    NumberAnimation { duration: 200; easing.type: Easing.InOutQuad }
+                }
+            }
+
+            Slider {
+                id: beats
+
+                width: parent.width
+                stepSize: 1
+                valueText: qsTr("Meter %1").arg(value)
+            }
+
+            Slider{
+                id: tempo
+
+                width: parent.width
+                valueText: qsTr("Tempo %1 bpm").arg(value)
+            }
         }
     }
 }

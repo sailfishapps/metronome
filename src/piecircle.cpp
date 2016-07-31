@@ -7,6 +7,7 @@ PieCircle::PieCircle(QQuickItem *parent) :
     _slices(4),
     _selectedSlice(0)
 {
+    setRenderTarget(QQuickPaintedItem::FramebufferObject);
     connect(this, SIGNAL(colorChanged()), this, SLOT(update()));
     connect(this, SIGNAL(slicesChanged()), this, SLOT(update()));
 }
