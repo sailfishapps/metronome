@@ -60,39 +60,6 @@ Page {
                 value: storage.getValue("tempo/step") == null ? 10 : storage.getValue("tempo/step")
                 onValueChanged: storage.setValue("tempo/step", value)
             }
-
-            // Beats
-
-            Label {
-                height: font.pixelSize + Theme.paddingLarge
-                font.pixelSize: Theme.fontSizeLarge
-                color: Theme.secondaryHighlightColor
-                text: qsTr("Beats")
-            }
-
-            Row {
-                width: parent.width
-                spacing: Theme.paddingSmall
-
-                TextField {
-                    id: beatsFrom
-                    placeholderText: qsTr("From")
-                    label: placeholderText
-                    inputMethodHints: Qt.ImhDigitsOnly
-                    width: (parent.width / 2) - Theme.paddingSmall
-                    text: storage.getValue("beats/from") == null ? "" : storage.getValue("beats/from")
-                    onTextChanged: storage.setValue("beats/from", text)
-                }
-                TextField {
-                    placeholderText: qsTr("To")
-                    label: placeholderText
-                    inputMethodHints: Qt.ImhDigitsOnly
-                    width: (parent.width / 2) - Theme.paddingSmall
-                    validator: IntValidator { bottom: beatsFrom.text != "" ? beatsFrom.text : 0 }
-                    text: storage.getValue("beats/to") == null ? "" : storage.getValue("beats/to")
-                    onTextChanged: storage.setValue("beats/to", text)
-                }
-            }
         }
     }
 }

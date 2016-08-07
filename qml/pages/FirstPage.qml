@@ -35,6 +35,8 @@ import QtMultimedia 5.0
 import harbour.metronome.Components 1.0
 import org.nemomobile.keepalive 1.0
 
+import "../components"
+
 Page {
     id: metronome
 
@@ -48,14 +50,14 @@ Page {
 
     onStatusChanged: {
         if (status === PageStatus.Activating) {
-            beats.maximumValue = storage.getValue("beats/to") == null ? 14 : storage.getValue("beats/to")
-            beats.minimumValue = storage.getValue("beats/from") == null ? 2 : storage.getValue("beats/from")
+//            beats.maximumValue = storage.getValue("beats/to") == null ? 14 : storage.getValue("beats/to")
+//            beats.minimumValue = storage.getValue("beats/from") == null ? 2 : storage.getValue("beats/from")
             tempo.maximumValue = storage.getValue("tempo/to") == null ? 300 : storage.getValue("tempo/to")
             tempo.minimumValue = storage.getValue("tempo/from") == null ? 30 : storage.getValue("tempo/from")
             tempo.stepSize = storage.getValue("tempo/step") == null ? 10 : storage.getValue("tempo/step")
 
             tempo.value = tempo.minimumValue
-            beats.value = beats.minimumValue
+//            beats.value = beats.minimumValue
         }
     }
 
@@ -114,7 +116,7 @@ Page {
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.top: title.bottom
 
-            spacing: Theme.paddingMedium
+            spacing: Theme.paddingLarge
 
 
             PieCircle {
@@ -151,12 +153,9 @@ Page {
                 }
             }
 
-            Slider {
+            MeterSelector {
                 id: beats
-
-                width: parent.width
-                stepSize: 1
-                valueText: qsTr("Meter %1").arg(value)
+                anchors.horizontalCenter: parent.horizontalCenter
             }
 
             Slider{
