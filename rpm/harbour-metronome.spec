@@ -13,7 +13,7 @@ Name:       harbour-metronome
 %{!?qtc_make:%define qtc_make make}
 %{?qtc_builddir:%define _builddir %qtc_builddir}
 Summary:    Metronome
-Version:    1.9.0
+Version:    1.9.5
 Release:    1
 Group:      Qt/Qt
 License:    GPLv2
@@ -22,6 +22,7 @@ Source0:    %{name}-%{version}.tar.bz2
 Source100:  harbour-metronome.yaml
 Requires:   sailfishsilica-qt5 >= 0.10.9
 BuildRequires:  pkgconfig(sailfishapp) >= 0.0.10
+BuildRequires:  pkgconfig(keepalive)
 BuildRequires:  pkgconfig(Qt5Core)
 BuildRequires:  pkgconfig(Qt5Qml)
 BuildRequires:  pkgconfig(Qt5Quick)
