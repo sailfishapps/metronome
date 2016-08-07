@@ -26,21 +26,17 @@ void PieCircle::paint(QPainter *painter)
 
     painter->drawEllipse(boundingRect());
 
-    const double angle = 360 / _slices;
-    const double start = (90 + (angle / 2)) + (angle * -_selectedSlice);
+    if (_slices > 1) {
+        if (_selectedSlice == 0)
+            brush.setColor(QColor(0, 255, 0, 255/4));
+        else
+            brush.setColor(QColor(255, 0, 0, 255/4));
+        painter->setBrush(brush);
 
-    painter->save();
-
-    if (_selectedSlice == 0)
-        brush.setColor(QColor(0, 255, 0, 255/4));
-    else
-        brush.setColor(QColor(255, 0, 0, 255/4));
-
-    painter->setBrush(brush);
-
-    painter->drawPie(boundingRect(), start*16, angle*-16);
-
-    painter->restore();
+        const double angle = 360 / _slices;
+        const double start = (90 + (angle / 2)) + (angle * -_selectedSlice);
+        painter->drawPie(boundingRect(), start*16, angle*-16);
+    }
 }
 
 void PieCircle::setColor(QColor &color)
@@ -51,7 +47,6 @@ void PieCircle::setColor(QColor &color)
 
 void PieCircle::setSlices(int slices)
 {
-    if (slices < 2) return;
     _slices = slices;
     emit slicesChanged();
 }
