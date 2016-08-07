@@ -33,7 +33,7 @@ import Sailfish.Silica 1.0
 import QtMultimedia 5.0
 
 import harbour.metronome.Components 1.0
-import org.nemomobile.keepalive 1.0
+import org.nemomobile.keepalive 1.1
 
 import "../components"
 
