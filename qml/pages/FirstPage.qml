@@ -80,6 +80,16 @@ Page {
         interval: 60000 / tempo.value
         repeat: true
 
+        onRunningChanged: {
+            if (running) {
+                bip.play();
+            }
+            else {
+                currentBeat = 0;
+                pie.selectSlice(currentBeat);
+            }
+        }
+
         onTriggered: {
             currentBeat = (currentBeat + 1)%beats.value
             pie.selectSlice(currentBeat)
@@ -162,7 +172,8 @@ Page {
                 id: tempo
 
                 width: parent.width
-                valueText: qsTr("Tempo %1 bpm").arg(value)
+                valueText: qsTr("%1 BMP").arg(value)
+                label: qsTr("Tempo")
             }
         }
     }
