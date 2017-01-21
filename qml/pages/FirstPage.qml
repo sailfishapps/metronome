@@ -169,7 +169,7 @@ Page {
                 id: tempo
 
                 width: parent.width
-                valueText: qsTr("%1 BMP").arg(value)
+                valueText: qsTr("%1 BPM").arg(value)
                 label: qsTr("Tempo")
             }
         }
